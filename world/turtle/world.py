@@ -55,6 +55,13 @@ def is_position_allowed(new_x, new_y):
     :param new_y: the new/proposed y position
     :return: True if allowed, i.e. it falls in the allowed area, else False
     """
+    if obstacles.is_position_blocked(new_x, new_y):
+        print("Sorry but the position is blocked")
+        return False
+    if obstacles.is_path_blocked(position_x, position_y, new_x,new_y):
+        print("There is something in the way")
+        return False
+    
     return min_x <= new_x <= max_x and min_y <= new_y <= max_y
 
 def draw_border():
@@ -77,10 +84,18 @@ obstacle = obstacles.obstacles
 def draw_obstacles():
     pencil = turtle.Turtle()
     for obst in obstacle:
-        y = obst[0]
-        x = obst[1]
+        # if obst[0] > 0:
+        #     x = -obst[0]
+        # else:
+        #     x = +obst[0]
+        if obst[1] > 0:
+            y = -obst[1]
+        else:
+            y = obst[1] * -1
+        x = obst[0]
+        # y = obst[1]
         pencil.penup()
-        pencil.setposition(y,x)
+        pencil.setposition(x,y)
         pencil.pensize(5)
         pencil.pencolor("green")
         pencil.pendown()
@@ -89,8 +104,6 @@ def draw_obstacles():
             pencil.forward(5)
             pencil.left(90)
 
-
-def is_position_blocked():
     
 
 draw_border()# calling
