@@ -1,5 +1,6 @@
 import turtle
 import world.obstacles as obstacles
+
 # from world.text import world as a
 
 # variables tracking position and direction
@@ -12,6 +13,8 @@ current_direction_index = 0
 min_y, max_y = -150, 150
 min_x, max_x = -250, 250
 bob = turtle.Turtle()
+blocked = False
+
 # s = turtle.Screen()
 
 def show_position(robot_name):
@@ -55,11 +58,13 @@ def is_position_allowed(new_x, new_y):
     :param new_y: the new/proposed y position
     :return: True if allowed, i.e. it falls in the allowed area, else False
     """
+    global blocked
+    blocked = False
     if obstacles.is_position_blocked(new_x, new_y):
-        print("Sorry but the position is blocked")
+        blocked = True
         return False
     if obstacles.is_path_blocked(position_x, position_y, new_x,new_y):
-        print("There is something in the way")
+        blocked = True 
         return False
     
     return min_x <= new_x <= max_x and min_y <= new_y <= max_y
@@ -104,7 +109,6 @@ def draw_obstacles():
             pencil.forward(5)
             pencil.left(90)
 
-    
 
 draw_border()# calling
 draw_obstacles()

@@ -1,5 +1,5 @@
 from world.turtle import world
-
+from world.text import world as T
 """
 TODO: You can either work from this skeleton, or you can build on your solution for Toy Robot 3 exercise.
 """
@@ -123,7 +123,10 @@ def do_forward(robot_name, steps):
             world.bob.forward(steps)
         return True, ' > '+robot_name+' moved forward by '+str(steps)+' steps.'
     else:
-        return True, ''+robot_name+': Sorry, I cannot go outside my safe zone.'
+        if world.blocked:
+            return True, ""+robot_name+": Sorry, there is an obstacle in the way."
+        else:
+            return True, ''+robot_name+': Sorry, I cannot go outside my safe zone.'
 
 
 def do_back(robot_name, steps):
@@ -298,7 +301,7 @@ def robot_start():
 
     robot_name = get_robot_name()
     output(robot_name, "Hello kiddo!")
-
+    T.show_text_obstacles()
     world.position_x = 0
     world.position_y = 0
     world.current_direction_index = 0

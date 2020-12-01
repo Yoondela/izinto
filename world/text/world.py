@@ -9,6 +9,7 @@ current_direction_index = 0
 # area limit vars
 min_y, max_y = -200, 200
 min_x, max_x = -400, 400
+obsts = obstacles.get_obstacles()
 
 def show_position(robot_name):
     print(' > '+robot_name+' now at position ('+str(position_x)+','+str(position_y)+').')
@@ -53,3 +54,23 @@ def is_position_allowed(new_x, new_y):
         return False
     elif obstacles.is_position_blocked(new_x, new_y) == False or a == False:
         return min_x <= new_x <= max_x and min_y <= new_y <= max_y
+
+def show_text_obstacles():
+    sorted_obstacles = sort_obstacles()
+    print("There are some obstacles:")
+    for i in sorted_obstacles:
+        print("- At position {},{} (to {},{})".format(i[0][0],i[0][1], i[1][0],i[1][1]))
+
+def sort_obstacles():
+    pairs = []
+    pairs.append([(obsts[0]), (obsts[1])])
+    pairs.append([(obsts[2]), (obsts[3])])
+    pairs.append([(obsts[4]), (obsts[5])])
+    pairs.append([(obsts[6]), (obsts[7])])
+    pairs.append([(obsts[8]), (obsts[9])])
+    pairs.append([(obsts[10]), (obsts[11])])
+    pairs.append([(obsts[12]), (obsts[13])])
+    pairs.append([(obsts[14]), (obsts[15])])
+    pairs.append([(obsts[16]), (obsts[17])])
+    pairs.append([(obsts[18]), (obsts[19])])
+    return pairs
