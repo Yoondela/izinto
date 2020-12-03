@@ -13,6 +13,7 @@ current_direction_index = 0
 min_y, max_y = -150, 150
 min_x, max_x = -250, 250
 bob = turtle.Turtle()
+obsts = obstacles.get_obstacles()
 blocked = False
 
 # s = turtle.Screen()
@@ -109,6 +110,25 @@ def draw_obstacles():
             pencil.forward(5)
             pencil.left(90)
 
+def show_text_obstacles():
+    sorted_obstacles = sort_obstacles()
+    print("There are some obstacles:")
+    for i in sorted_obstacles:
+        print("- At position {},{} (to {},{})".format(i[0][0],i[0][1], i[1][0],i[1][1]))
+
+def sort_obstacles():
+    pairs = []
+    pairs.append([(obsts[0]), (obsts[1])])
+    pairs.append([(obsts[2]), (obsts[3])])
+    pairs.append([(obsts[4]), (obsts[5])])
+    pairs.append([(obsts[6]), (obsts[7])])
+    pairs.append([(obsts[8]), (obsts[9])])
+    pairs.append([(obsts[10]), (obsts[11])])
+    pairs.append([(obsts[12]), (obsts[13])])
+    pairs.append([(obsts[14]), (obsts[15])])
+    pairs.append([(obsts[16]), (obsts[17])])
+    pairs.append([(obsts[18]), (obsts[19])])
+    return pairs
 
 draw_border()# calling
 draw_obstacles()

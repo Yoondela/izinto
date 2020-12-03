@@ -10,6 +10,7 @@ current_direction_index = 0
 min_y, max_y = -200, 200
 min_x, max_x = -400, 400
 obsts = obstacles.get_obstacles()
+blocked = False
 
 def show_position(robot_name):
     print(' > '+robot_name+' now at position ('+str(position_x)+','+str(position_y)+').')
@@ -45,15 +46,24 @@ def is_position_allowed(new_x, new_y):
     :param new_y: the new/proposed y position
     :return: True if allowed, i.e. it falls in the allowed area, else False
     """
-    a = False
-    if obstacles.is_path_blocked(position_x, position_y, new_x, new_y) == False:
-        a = True
+    # a = False
+    # if obstacles.is_path_blocked(position_x, position_y, new_x, new_y) == False:
+    #     a = True
+    #     return False
+    # if obstacles.is_position_blocked(new_x,new_y):
+    #     print("Sorry, There is an obstacle in the way to the position")
+    #     return False
+    # elif obstacles.is_position_blocked(new_x, new_y) == False or a == False:
+
+    global blocked
+    blocked = False
+    if obstacles.is_position_blocked(new_x, new_y):
+        blocked = True
         return False
-    if obstacles.is_position_blocked(new_x,new_y):
-        print("Sorry, There is an obstacle in the way to the position")
+    if obstacles.is_path_blocked(position_x, position_y, new_x,new_y):
+        blocked = True 
         return False
-    elif obstacles.is_position_blocked(new_x, new_y) == False or a == False:
-        return min_x <= new_x <= max_x and min_y <= new_y <= max_y
+    return min_x <= new_x <= max_x and min_y <= new_y <= max_y
 
 def show_text_obstacles():
     sorted_obstacles = sort_obstacles()

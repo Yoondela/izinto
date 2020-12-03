@@ -1,5 +1,15 @@
-from world.turtle import world
-from world.text import world as T
+import sys
+if len(sys.argv) > 1:
+    if sys.argv[1] == "turtle":
+        on_turtle = True
+        from world.turtle import world
+    elif sys.argv[1] == "text":
+        on_text = True
+        from world.text import world
+else:
+    from world.text import world
+
+
 """
 TODO: You can either work from this skeleton, or you can build on your solution for Toy Robot 3 exercise.
 """
@@ -13,7 +23,8 @@ move_commands = valid_commands[3:]
 #commands history
 history = []
 
-on_turtle = True #change
+# on_turtle = False
+# on_text = False
 
 def get_robot_name():
     name = input("What do you want to name your robot? ")
@@ -118,6 +129,7 @@ def do_forward(robot_name, steps):
     :param steps:
     :return: (True, forward output text)
     """
+    print(on_turtle)
     if world.update_position(steps):
         if on_turtle:
             world.bob.forward(steps)
@@ -141,8 +153,12 @@ def do_back(robot_name, steps):
         if on_turtle:
             world.bob.back(steps)    
         return True, ' > '+robot_name+' moved back by '+str(steps)+' steps.'
-    else:
-        return True, ''+robot_name+': Sorry, I cannot go outside my safe zone.'
+    else:    
+        if world.blocked:
+            return True, ""+robot_name+": Sorry, there is an obstacle in the way."
+        else:
+            return True, ''+robot_name+': Sorry, I cannot go outside my safe zone.'
+
 
 
 def do_right_turn(robot_name):
@@ -301,7 +317,7 @@ def robot_start():
 
     robot_name = get_robot_name()
     output(robot_name, "Hello kiddo!")
-    T.show_text_obstacles()
+    world.show_text_obstacles()
     world.position_x = 0
     world.position_y = 0
     world.current_direction_index = 0

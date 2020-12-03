@@ -1,15 +1,18 @@
 import random
 
-obstacles = []
+
 occupied = []
 y_change = False
 
+def generate_obstacles():
+    obstacles = []
+    for i in range(10):
+        x = random.randint(-150, 150)
+        y = random.randint(-250, 250)
+        obstacles.append((x,y))
+    return obstacles
 
-for i in range(10):
-    x = random.randint(-150, 150)
-    y = random.randint(-250, 250)
-    obstacles.append((x,y))
-
+obstacles = [] #= generate_obstacles()
 
 def is_position_blocked(y,x): #might have to switch y,x for test (unit)
     pos = (y,x)
@@ -49,10 +52,8 @@ def is_path_blocked(y1,x1,y2,x2):
     end_x = end[1]
     blocked = False
     if start_y <= end_y:
-        # print("inside if one")
         for i in range(start_y, end_y+1):
             if start_x <= end_x:
-                # print("inside if one[0]")
                 for j in range(start_x, end_x):
                     # print("in j(1)")
                     if start_x < end_x:
@@ -64,9 +65,9 @@ def is_path_blocked(y1,x1,y2,x2):
                     # print("this is start_y/x ONE {}".format(start_y,start_x))
                     if (start_y,start_x) in occupied:
                         # print("ohh we in here")
-                        print("blocked")
+                        # print("blocked")
                         blocked = True
-                    print("{},{}".format(start_y, start_x))
+                    # print("{},{}".format(start_y, start_x))
 
             elif start_x > end_x:
                 for j in range(end_x, start_x):
@@ -77,10 +78,10 @@ def is_path_blocked(y1,x1,y2,x2):
                         start_x = start_x - 1
                     # print("this is start_y/x TWO {}".format(start_y,start_x))
                     if (start_y,start_x) in occupied:
-                        print("blocked")
+                        # print("blocked")
                         blocked = True
-                    print("{},{}".format(start_y, start_x))
-            print("{},{}".format(start_y, start_x))
+                    # print("{},{}".format(start_y, start_x))
+            # print("{},{}".format(start_y, start_x))
 
 
 
@@ -89,7 +90,7 @@ def is_path_blocked(y1,x1,y2,x2):
             elif start_y > end_y:
                 start_y = start_y - 1
             if (start_y, start_x) in occupied:
-                print("blocked")
+                # print("blocked")
                 blocked = True
 
     elif start_y > end_y:
@@ -98,7 +99,7 @@ def is_path_blocked(y1,x1,y2,x2):
             if start_x <= end_x:
                 # print("inside if two[0]")
                 for j in range(start_x, end_x):
-                    print("in j(3)")
+                    # print("in j(3)")
                     if start_x < end_x:
                         # print("inside if two[1]")
                         start_x = start_x + 1
@@ -107,9 +108,9 @@ def is_path_blocked(y1,x1,y2,x2):
                         start_x = start_x - 1
                     # print("this is start_y/x THREE {}".format(start_y,start_x))
                     if (start_y,start_x) in occupied:
-                        print("blocked")
+                        # print("blocked")
                         blocked = True
-                    print("{},{}".format(start_y, start_x))
+                    # print("{},{}".format(start_y, start_x))
 
             elif start_x > end_x:
                 for j in range(end_x, start_x):
@@ -120,17 +121,17 @@ def is_path_blocked(y1,x1,y2,x2):
                         start_x = start_x - 1
                     # print("this is start_y/x FOUR {}".format(start_y,start_x))
                     if (start_y,start_x) in occupied:
-                        print("blocked")
+                        # print("blocked")
                         blocked = True
-                    print("{},{}".format(start_y, start_x))
-                print("{},{}".format(start_y, start_x))
+                #     print("{},{}".format(start_y, start_x))
+                # print("{},{}".format(start_y, start_x))
 
             if start_y < end_y:
                 start_y = start_y + 1
             elif start_y > end_y:
                 start_y = start_y - 1
             if (start_y, start_x) in occupied:
-                print("blocked")
+                # print("blocked")
                 blocked = True
     return blocked
 
@@ -147,9 +148,8 @@ def get_obstacles():
         end_obstacle.append((x,y))
     return end_obstacle
 
-
-
+print(obstacles)
 # print(get_obstacles())
-print(is_position_blocked(118, 12))
-print(occupied)
+# print(is_position_blocked(118, 12))
+# print(occupied)
 # print(is_path_blocked(0,-9, 100,-2))
